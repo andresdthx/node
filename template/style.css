@@ -98,6 +98,11 @@ a:hover{
     margin-bottom: 1rem;
 }
 
+.product-rating span{
+    color: #f0c040;
+    margin: 0.1rem;
+}
+
 /* Sidebar */
 
 .brand button{
