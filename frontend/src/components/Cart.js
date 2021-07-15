@@ -1,8 +1,10 @@
 import React from 'react'
 
-export default function Cart() {
+export default function Cart(props) {
+    const {product} = props;
+
     return (
-        <div className="card card-body cart">
+        <div>
             <ul>
                 <li>
                     <div className="row">
@@ -16,7 +18,7 @@ export default function Cart() {
                         <div className="status">
                             {
                                 product.countInStock > 0 ?
-                                (<span className="sucess">In Stock</span>):
+                                (<span className="success">In Stock</span>):
                                 (<span className="error">Unavailable</span>)
                             }
                         </div>

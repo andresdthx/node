@@ -1,8 +1,9 @@
-import Product from '../components/Product';
+// import Product from '../components/Product';
 import data from '../data';
 import React from 'react'
 import Rating from '../components/Rating';
 import { Link } from 'react-router-dom';
+import Cart from '../components/Cart';
 
 export default function ProductScreen(props) {
     const product = data.products.find(x => x._id === props.match.params.id)
@@ -32,6 +33,9 @@ export default function ProductScreen(props) {
                             Description : {product.description}
                         </li>
                     </ul>
+                </div>
+                <div className="col-1 card card-body">
+                    <Cart product={product}></Cart>
                 </div>
             </div>
         </div>
