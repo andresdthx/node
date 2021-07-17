@@ -48,7 +48,7 @@ export default function ProductScreen(props) {
                     </ul>
                 </div>
                 <div className="col-1 card card-body">
-                    <Cart product={product}></Cart>
+                    <Cart url={props} product={product}></Cart>
                 </div>
             </div>
             </div>  

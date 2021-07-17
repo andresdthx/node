@@ -1,7 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 export default function Cart(props) {
-    const {product} = props;
+    const {product, url} = props;
+    const [qty, setQty] = useState(1);
+
+    const addToCartHandler = () => {
+        url.history.push(`/cart/${product._id}?qty=${qty}`)
+    }
 
     return (
         <div>
@@ -24,9 +29,31 @@ export default function Cart(props) {
                         </div>
                     </div>
                 </li>
-                <li>
-                    <button className="primary block">Add</button>
-                </li>
+                {
+                    product.countInStock > 0 && (
+                        <>
+                        <li>
+                            <div className="row">
+                                <div>Qty</div>
+                                <div>
+                                    <select value={qty} onChange={e => setQty(e.target.value)}>
+                                        {
+                                            [...Array(product.countInStock).keys()].map( x => (
+                                                <option key={x + 1} value={x + 1}>
+                                                    {x + 1}
+                                                </option>
+                                            ))
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <button onClick={addToCartHandler} className="primary block">Add</button>
+                        </li>
+                        </>
+                    )
+                }
             </ul>
         </div>
     )

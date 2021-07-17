@@ -7,7 +7,7 @@ const data = {
             category: 'Shirts',
             image: '/images/d1.jpg',
             price: 120,
-            countInStock: 10,
+            countInStock: 7,
             rating: 3.5,
             numReviews: 20,
             description: 'high quality product'
