@@ -23,7 +23,8 @@ export default function Cart(props) {
                         <div className="status">
                             {
                                 product.countInStock > 0 ?
-                                (<span className="success">In Stock</span>):
+                                (<span className="success">In Stock</span>)
+                                :
                                 (<span className="error">Unavailable</span>)
                             }
                         </div>

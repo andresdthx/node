@@ -3,7 +3,7 @@ const data = {
         {
             _id:'1',
             brand: 'Nike',
-            name: 'Slim Shirt',
+            name: 'Slim Shart',
             category: 'Shirts',
             image: '/images/d1.jpg',
             price: 120,
@@ -39,11 +39,11 @@ const data = {
         {
             _id:'4',
             brand: 'Gucci',
-            name: 'Slim Shirt',
+            name: 'Slim Shurt',
             category: 'Shirts',
             image: '/images/d1.jpg',
             price: 12000,
-            countInStock: 100,
+            countInStock: 30,
             rating: 3,
             numReviews: 2,
             description: 'high quality product'
@@ -51,7 +51,7 @@ const data = {
         {
             _id:'5',
             brand: 'Nike',
-            name: 'Slim Shirt',
+            name: 'Slim Shert',
             category: 'Shirts',
             image: '/images/d1.jpg',
             price: 120,
@@ -63,7 +63,7 @@ const data = {
         {
             _id:'6',
             brand: 'Nike',
-            name: 'Slim Shirt',
+            name: 'Slim Shiirt',
             category: 'Shirts',
             image: '/images/d1.jpg',
             price: 120,

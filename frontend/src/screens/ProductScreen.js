@@ -11,6 +11,7 @@ import LoadingBox from '../components/LoadingBox';
 export default function ProductScreen(props) {
     const dispatch = useDispatch();
     const productId = props.match.params.id;
+    
     const productDetail = useSelector(state => state.productDetail);
     const { loading, error, product } = productDetail;
 
