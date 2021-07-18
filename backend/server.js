@@ -4,7 +4,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 const mongoose = require('mongoose');
-const data = require('./data');
+const productRouter = require('./routers/productRouter');
 const userRouter = require('./routers/userRouter');
 
 mongoose.connect (process.env.MONGODB_URL || 'mongodb://localhost/ecommerce', {
@@ -15,18 +15,14 @@ mongoose.connect (process.env.MONGODB_URL || 'mongodb://localhost/ecommerce', {
 
 // ---------------------------------------------------------------------
 
-app.get('/api/products', (req, res)=>{
-  res.send(data.products);
-});
-
-app.get('/api/products/:id', (req, res)=>{
-  const product = data.products.find(x => x._id === req.params.id);
-  if (product) {
-    res.send(product);
-  } else {
-    res.status(404).send({message: 'Product not found'});
-  }
-});
+// app.get('/api/products/:id', (req, res)=>{
+//   const product = data.products.find(x => x._id === req.params.id);
+//   if (product) {
+//     res.send(product);
+//   } else {
+//     res.status(404).send({message: 'Product not found'});
+//   }
+// });
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -35,6 +31,7 @@ app.get('/', (req, res) => {
 // ------------------------------------------------------------------
 
 app.use('/api/users', userRouter);
+app.use('/api/products', productRouter);
 
 //Middleware control errors
 app.use((err, req, res, next) =>{

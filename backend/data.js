@@ -17,7 +17,6 @@ const data = {
     ],
     products:[
         {
-            _id:'1',
             brand: 'Nike',
             name: 'Slim Shart',
             category: 'Shirts',
@@ -29,7 +28,6 @@ const data = {
             description: 'high quality product'
         },
         {
-            _id:'2',
             brand: 'Adidas',
             name: 'Slim Short',
             category: 'Shirts',
@@ -41,7 +39,6 @@ const data = {
             description: 'high quality product'
         },
         {
-            _id:'3',
             brand: 'Lacoste',
             name: 'Slim Shirt',
             category: 'Shirts',
@@ -53,7 +50,6 @@ const data = {
             description: 'high quality product'
         },
         {
-            _id:'4',
             brand: 'Gucci',
             name: 'Slim Shurt',
             category: 'Shirts',
@@ -65,7 +61,6 @@ const data = {
             description: 'high quality product'
         },
         {
-            _id:'5',
             brand: 'Nike',
             name: 'Slim Shert',
             category: 'Shirts',
@@ -77,7 +72,6 @@ const data = {
             description: 'high quality product'
         },
         {
-            _id:'6',
             brand: 'Nike',
             name: 'Slim Shiirt',
             category: 'Shirts',
