@@ -1,8 +1,19 @@
-const express = require('express')
-const app = express()
+/* eslint-disable no-undef */
+const express = require('express');
+const app = express();
 const port = process.env.PORT || 5000;
 
+const mongoose = require('mongoose');
 const data = require('./data');
+const userRouter = require('./routers/userRouter');
+
+mongoose.connect (process.env.MONGODB_URL || 'mongodb://localhost/ecommerce', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true
+});
+
+// ---------------------------------------------------------------------
 
 app.get('/api/products', (req, res)=>{
   res.send(data.products);
@@ -19,8 +30,19 @@ app.get('/api/products/:id', (req, res)=>{
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
-})
+});
+
+// ------------------------------------------------------------------
+
+app.use('/api/users', userRouter);
+
+//Middleware control errors
+app.use((err, req, res, next) =>{
+  res.status(500).send({message: err.message});
+});
+
+// -----------------------------------------------------------------
 
 app.listen(port, () => {
   console.log(`Serve at http://localhost:${port}`)
-})
+});
