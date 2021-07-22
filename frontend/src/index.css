@@ -238,6 +238,9 @@ img.large{
   width: 100%;
 }
 /* Alert */
+.loading{
+  display: block !important;
+}
 .success{
   color: #20a020;
 }
