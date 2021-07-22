@@ -340,3 +340,19 @@ img.large{
   display: block;
 }
 
+.checkout-steps{
+  padding: 1rem;
+}
+/* Checkout steps */
+.checkout-steps > div{
+  border-top: 0.3rem #c0c0c0 solid;
+  color: #c0c0c0;
+  flex: 1;
+  padding: 1rem;
+  transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.checkout-steps > div.active{
+  border-top-color: #f08000;
+  color: #f08000;
+}
+
