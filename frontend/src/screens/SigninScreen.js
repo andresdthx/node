@@ -28,12 +28,14 @@ export default function SigninScreen(props) {
     }, [props.history, redirect, userInfo]);
     return (
         <div>
+
+            {loading && <LoadingBox></LoadingBox>}
+            {error && <MessageBox variant="danger">{error}</MessageBox>}
+            
             <form className="form" onSubmit={submitHandler}>
                 <div>
                     <h1>Sign In</h1>
                 </div>
-                {loading && <LoadingBox></LoadingBox>}
-                {error && <MessageBox variant="danger">{error}</MessageBox>}
                 <div>
                     <label htmlFor="email">Email address</label>
                     <input
