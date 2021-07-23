@@ -64,28 +64,26 @@ export default function PlaceOrderScreen(props) {
                         <li>
                             <div className="card card-body">
                                 <h2>Order items</h2>
-                                <p>
-                                    <div className="shopping-cart">
-                                        {cart.cartItems.map((x) => (
-                                            <div className="products-cart">
-                                                <img src={x.image} className="image-cart" alt={x.name} />
-                                                <div className="name-cart"><Link to={`/product/${x.product}`}> {x.name} </Link></div>
-                                                <div className="qty-cart">
-                                                    <select value={x.qty} onChange={e => dispatch(addToCart(x.product, Number(e.target.value)))}>
-                                                            {
-                                                                [...Array(x.countInStock).keys()].map( x => (
-                                                                    <option key={x + 1} value={x + 1}>
-                                                                        {x + 1}
-                                                                    </option>
-                                                                ))
-                                                            }
-                                                    </select>
-                                                </div>
-                                                <div className="price-cart">{x.qty} x ${x.price} = ${x.qty * x.price}</div>
+                                <div className="shopping-cart">
+                                    {cart.cartItems.map((x) => (
+                                        <div className="products-cart" key={x.product}>
+                                            <img src={x.image} className="image-cart" alt={x.name} />
+                                            <div className="name-cart"><Link to={`/product/${x.product}`}> {x.name} </Link></div>
+                                            <div className="qty-cart">
+                                                <select value={x.qty} onChange={e => dispatch(addToCart(x.product, Number(e.target.value)))}>
+                                                        {
+                                                            [...Array(x.countInStock).keys()].map( x => (
+                                                                <option key={x + 1} value={x + 1}>
+                                                                    {x + 1}
+                                                                </option>
+                                                            ))
+                                                        }
+                                                </select>
                                             </div>
-                                        ))}
-                                    </div>
-                                </p>
+                                            <div className="price-cart">{x.qty} x ${x.price} = ${x.qty * x.price}</div>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
                         </li>
                     </ul>
