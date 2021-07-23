@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { create } from '../actions/orderActions';
 import { addToCart } from '../actions/cartActions';
-// import Cart from '../components/Cart';
 import CheckoutSteps from '../components/CheckoutSteps';
+import LoadingBox from '../components/LoadingBox';
+import MessageBox from '../components/MessageBox';
+import { ORDER_CREATE_RESET } from '../constants/orderConstants';
 
 export default function PlaceOrderScreen(props) {
 
     const dispatch = useDispatch('');
     const cart = useSelector(state => state.cart);
+
+    const createOrder = useSelector(state => state.createOrder);
+    const { loading, success, error, order } = createOrder; 
 
     if (!cart.paymentMethod) {
         props.history.push('/payment');
@@ -20,10 +26,16 @@ export default function PlaceOrderScreen(props) {
     cart.taxPrice = toPrice(0.15 * cart.itemsPrice);
     cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
 
-    const placeOrderHandler = () => {
-        // 
+    const placeOrderHandler = (e) => {
+        dispatch(create({...cart, orderItems: cart.cartItems}));
     }
 
+    useEffect(() =>{
+        if(success){
+            props.history.push(`/order/${order._id}`);
+            dispatch({ type: ORDER_CREATE_RESET });
+        }
+    }, [dispatch, props.history, order, success])
     return (
         <div>
             <CheckoutSteps step1 step2 step3 step4></CheckoutSteps>
@@ -111,6 +123,8 @@ export default function PlaceOrderScreen(props) {
                             <li>
                                 <button type="button" onClick={placeOrderHandler} disabled={cart.cartItems.length === 0} className="primary block">Place order</button>
                             </li>
+                            {loading && <LoadingBox></LoadingBox>}
+                            {error && <MessageBox variant="danger">{error}</MessageBox>}
                         </ul>
                     </div>
                 </div>
