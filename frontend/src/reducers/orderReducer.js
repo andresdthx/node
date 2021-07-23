@@ -23,7 +23,7 @@ export const createOrderReducer = (state= {}, action) => {
     }
 }
 
-export const detailsOrderReducer = (state = {}, action) => {
+export const detailsOrderReducer = (state = { loading: false }, action) => {
     switch (action.type) {
         case ORDER_DETAILS_REQUEST:
             return { loading: true };

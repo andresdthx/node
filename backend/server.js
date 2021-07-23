@@ -20,7 +20,9 @@ mongoose.connect (process.env.MONGODB_URL || 'mongodb://localhost/ecommerce', {
 });
 
 // ---------------------------------------------------------------------
-
+app.get('/api/config/paypal', (req, res) => {
+  res.send(process.env.PAYPAL_CLIENT_ID || 'sb');
+});
 app.get('/', (req, res) => {
   res.send('Hello World!')
 });
