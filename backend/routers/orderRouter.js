@@ -51,4 +51,15 @@ orderRouter.put('/:id/pay', isAuth, expressAsyncHandler(async (req, res) =>{
     }
 }));
 
+orderRouter.post('/history', expressAsyncHandler(async(req, res)=>{
+    const ObjectId = require('mongodb').ObjectId; 
+    const id = req.body.id;
+    const orders = await Order.find({user: ObjectId(id)});
+    if(orders){
+        res.send(orders);
+    } else {
+        res.status(404).send('Not Fount');
+    }
+}))
+
 module.exports = orderRouter;

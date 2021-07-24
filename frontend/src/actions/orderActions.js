@@ -7,6 +7,9 @@ import {
     ORDER_DETAILS_FAIL,
     ORDER_DETAILS_REQUEST,
     ORDER_DETAILS_SUCCESS,
+    ORDER_HISTORY_FAIL,
+    ORDER_HISTORY_REQUEST,
+    ORDER_HISTORY_SUCCESS,
     ORDER_PAY_FAIL,
     ORDER_PAY_REQUEST,
     ORDER_PAY_SUCCESS
@@ -62,7 +65,7 @@ export const detailsOrder = (orderId) => async (dispatch, getState) =>{
 }
 
 export const payOrder = (order, paymentResult) => async (dispatch, getState) => {
-    dispatch({ type: ORDER_PAY_REQUEST, payload: {order, paymentResult}});
+    dispatch({ type: ORDER_PAY_REQUEST});
 
     const { userSignin: { userInfo } } = getState();
     try {
@@ -82,3 +85,27 @@ export const payOrder = (order, paymentResult) => async (dispatch, getState) => 
         });
     }
 } 
+
+export const orderHistory = () => async (dispatch, getState) => {
+    dispatch({type: ORDER_HISTORY_REQUEST});
+
+    try {
+        const { userSignin: { userInfo } } = getState();
+
+        const { data } = await axios.post('/api/orders/history',
+        { id: userInfo._id },
+        {headers: { Authorization: `Bearer ${userInfo.token}` }}
+        );
+
+        dispatch({type: ORDER_HISTORY_SUCCESS, payload: data});
+        
+    } catch (error) {
+        dispatch({
+            type: ORDER_HISTORY_FAIL,
+            payload:
+            error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+        });
+    }
+}

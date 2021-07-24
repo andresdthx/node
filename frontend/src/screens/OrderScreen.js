@@ -6,7 +6,7 @@ import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { ORDER_PAY_FAIL, ORDER_PAY_RESET } from '../constants/orderConstants';
+import { ORDER_PAY_RESET } from '../constants/orderConstants';
 
 export default function OrderScreen(props) {
 
@@ -83,7 +83,7 @@ export default function OrderScreen(props) {
                                     {order.shippingAddress.country}
                                 </p>
                                 {order.isDelivered ?
-                                    <MessageBox variant="success">Delivered at: {order.deliveredAt}</MessageBox>
+                                    <MessageBox variant="success">Delivered at: {order.deliveredAt.split('T')[0]}</MessageBox>
                                 :
                                     <MessageBox variant="danger">Not delivered</MessageBox>
                                 }
@@ -96,7 +96,7 @@ export default function OrderScreen(props) {
                                     <strong>Method: </strong>{order.paymentMethod} <br/>
                                 </p>
                                 {order.isPaid ?
-                                    <MessageBox variant="success">Paid at: {order.paidAt}</MessageBox>
+                                    <MessageBox variant="success">Paid at: {order.paidAt.split('T')[0]}</MessageBox>
                                 :
                                     <MessageBox variant="danger">Not Paid</MessageBox>
                                 }

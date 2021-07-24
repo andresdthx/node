@@ -400,3 +400,26 @@ img.large{
   }
 }
 
+/* Table */
+.table-content{
+  padding: 3rem;
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+table th{
+  text-transform: uppercase;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #f0efef;
+}
+
