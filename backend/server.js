@@ -6,6 +6,7 @@ const productRouter = require('./routers/productRouter');
 const userRouter = require('./routers/userRouter');
 const dotenv = require('dotenv');
 const orderRouter = require('./routers/orderRouter');
+const paymentPayuRouter = require('./routers/paymentPayuRouter');
 
 dotenv.config();
 
@@ -35,6 +36,7 @@ app.use(express.urlencoded({ extended:true }));
 app.use('/api/users', userRouter);
 app.use('/api/products', productRouter);
 app.use('/api/orders', orderRouter);
+app.use('/api/payment/payu', paymentPayuRouter);
 
 //Middleware control errors
 app.use((err, req, res, next) =>{

@@ -373,7 +373,7 @@ img.large{
   border: 4px solid rgba(0, 0, 0, .1);
   border-left-color: transparent;
   border-radius: 50%;
-  position: absolute;
+  /* position: absolute; */
   top: 50%;
 }
 .spinner {

@@ -5,12 +5,19 @@ import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { Link } from 'react-router-dom';
 
-export default function OrderHistoryScreen() {
+export default function OrderHistoryScreen(props) {
 
     const dispatch = useDispatch();
     
     const historyOrder = useSelector(state => state.orderHistory);
     const { orders, error, loading } = historyOrder;
+
+    const userSignin = useSelector(state => state.userSignin);
+    const { userInfo } = userSignin;
+
+    if(!userInfo){
+        props.history.push('/');
+    }
 
     useEffect(() =>{
         dispatch(orderHistory());

@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const data = require('../data');
 const User = require('../models/userModel');
 const { generateToken } = require('../utils');
+const { isAuth } = require('../utils');
 
 const userRouter = express.Router();
 
@@ -51,6 +52,24 @@ userRouter.post('/register', expressAsyncHandler( async(req, res) =>{
         isAdmin: createdUser.isAdmin,
         token: generateToken(createdUser)
     });
-}))
+}));
+
+userRouter.put('/update/:id', isAuth, expressAsyncHandler(async (req, res) =>{
+    const user = await User.findById(req.params.id);
+    if(user){
+        user.name = req.body.name;
+        user.email = req.body.email;
+        user.password = bcrypt.hashSync(req.body.password, 8);
+        const updateUser = await user.save();
+        res.send({message: 'update success', user: {
+            _id: updateUser._id,
+            name: updateUser.name,
+            email: updateUser.email,
+            isAdmin: updateUser.isAdmin
+        }});
+    } else {
+        res.status(404).send('User not found');
+    }
+}));
 
 module.exports = userRouter;

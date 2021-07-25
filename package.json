@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node backend/server.js",
+    "api-pay": "node backend/calls/PayuCalls.js",
     "dev": "nodemon backend/server.js",
     "dev-nodemon": "nodemon --watch backend --exec node --experimental-modules backend/server.js"
   },
@@ -20,13 +21,16 @@
   },
   "homepage": "https://github.com/andresdthx/node#readme",
   "dependencies": {
+    "axios": "^0.21.1",
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-async-handler": "^1.1.4",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.13.3"
+    "mongoose": "^5.13.3",
+    "request": "^2.88.2",
+    "xhr2": "^0.2.1"
   },
   "devDependencies": {
     "eslint": "^7.30.0",

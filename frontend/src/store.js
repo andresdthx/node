@@ -2,8 +2,9 @@ import { applyMiddleware, createStore, compose, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import { cartReducer } from './reducers/cartReducers';
 import { productDetailsReducer, productListReducer } from './reducers/productReducers';
-import { userRegisterReducer, userSigninReducer } from './reducers/userReducers';
+import { userProfileReducer, userRegisterReducer, userSigninReducer } from './reducers/userReducers';
 import { createOrderReducer, detailsOrderReducer, orderHistoryReducer, payOrderReducer } from './reducers/orderReducer';
+import { listBanksReducer, registerPaymentReducer } from './reducers/paymentReducers';
 
 const initialState = {
     userSignin: {
@@ -31,7 +32,10 @@ const reducer = combineReducers({
     createOrder: createOrderReducer,
     orderDetails: detailsOrderReducer,
     payOrder: payOrderReducer,
-    orderHistory: orderHistoryReducer
+    orderHistory: orderHistoryReducer,
+    updateUser: userProfileReducer,
+    banksList: listBanksReducer,
+    registerPayment: registerPaymentReducer
 })
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

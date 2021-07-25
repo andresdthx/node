@@ -7,6 +7,7 @@ import MessageBox from '../components/MessageBox';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { ORDER_PAY_RESET } from '../constants/orderConstants';
+import FormPayment from '../components/FormPayment';
 
 export default function OrderScreen(props) {
 
@@ -17,6 +18,9 @@ export default function OrderScreen(props) {
 
     const orderDetails = useSelector((state) => state.orderDetails);
     const { order, loading, error } = orderDetails;
+
+    // const cart = useSelector(state => state.cart);
+    // const { paymentMethod } = cart;
 
     const orderPaid = useSelector(state => state.payOrder);
     const { success: successPay } = orderPaid;
@@ -65,6 +69,7 @@ export default function OrderScreen(props) {
     :
     (
         <div>
+            
             <div className="row top">
                 <div className="col-2">
                     <ul>
@@ -150,6 +155,9 @@ export default function OrderScreen(props) {
                             </li>
                             {
                                 !order.isPaid && (
+                                    <>
+                                    {order.paymentMethod === 'Paypal' ?
+                                    (
                                     <li>
                                         {!sdkReady ? (<LoadingBox></LoadingBox>)
                                         :
@@ -162,6 +170,19 @@ export default function OrderScreen(props) {
                                             )
                                         }
                                     </li>
+                                    )
+                                    : order.paymentMethod === 'pse' ?
+                                    (
+                                        <li>
+                                            <FormPayment></FormPayment>
+                                        </li>
+                                    )
+                                    :
+                                    (
+                                        <span>stripe</span>
+                                    )
+                                    }
+                                    </>
                                 )
                             }
                         </ul>
