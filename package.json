@@ -5,10 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node backend/server.js",
-    "api-pay": "node backend/calls/PayuCalls.js",
-    "dev": "nodemon backend/server.js",
-    "dev-nodemon": "nodemon --watch backend --exec node --experimental-modules backend/server.js"
+    "start": "node backend/index.js",
+    "dev": "nodemon backend/index.js",
+    "dev-nodemon": "nodemon --watch backend --exec node --experimental-modules backend/index.js"
   },
   "repository": {
     "type": "git",

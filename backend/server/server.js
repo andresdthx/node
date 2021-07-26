@@ -3,11 +3,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 
-const productRouter = require('./routers/productRouter');
-const userRouter = require('./routers/userRouter');
+const productRouter = require('../routers/productRouter');
+const userRouter = require('../routers/userRouter');
 const dotenv = require('dotenv');
-const orderRouter = require('./routers/orderRouter');
-const paymentPayuRouter = require('./routers/paymentPayuRouter');
+const orderRouter = require('../routers/orderRouter');
+const paymentPayuRouter = require('../routers/paymentPayuRouter');
 
 dotenv.config();
 

@@ -1,10 +1,10 @@
-const express = require('express');
-const expressAsyncHandler = require('express-async-handler');
-const bcrypt = require('bcryptjs');
 const data = require('../data');
+const express = require('express');
+const bcrypt = require('bcryptjs');
+const { isAuth } = require('../middleware/utils');
+const { generateToken } = require('../middleware/utils');
 const User = require('../models/userModel');
-const { generateToken } = require('../utils');
-const { isAuth } = require('../utils');
+const expressAsyncHandler = require('express-async-handler');
 
 const userRouter = express.Router();
 
