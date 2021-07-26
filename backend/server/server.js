@@ -1,6 +1,5 @@
 /* eslint-disable no-undef */
 const express = require('express');
-const mongoose = require('mongoose');
 const path = require('path');
 
 const productRouter = require('../routers/productRouter');
@@ -14,11 +13,7 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 5000;
 
-mongoose.connect (process.env.MONGODB_URL || 'mongodb://localhost/ecommerce', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true
-});
+
 
 // ---------------------------------------------------------------------
 app.get('/api/config/paypal', (req, res) => {
