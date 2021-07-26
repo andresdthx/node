@@ -14,7 +14,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 
-mongoose.connect ('mongodb+srv://ecommerce:ecommerce@cluster0.wuswb.mongodb.net/Cluster0?retryWrites=true&w=majority', {
+mongoose.connect ('mongodb://ecommerce:ecommerce@cluster0-shard-00-00.wuswb.mongodb.net:27017,cluster0-shard-00-01.wuswb.mongodb.net:27017,cluster0-shard-00-02.wuswb.mongodb.net:27017/Cluster0?ssl=true&replicaSet=atlas-1166xx-shard-0&authSource=admin&retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
