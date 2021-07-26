@@ -36,7 +36,6 @@ export default function FormPayment() {
     }
 
     useEffect(() => {
-        console.log(loadingPse);
         dispatch(listBanks());
     }, [dispatch], loadingPse, pseTransaction);
 

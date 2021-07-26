@@ -45,6 +45,19 @@ function App() {
                     )}
                 </Link>
                 {
+                    userInfo && userInfo.isAdmin && (
+                        <div className="dropdown">
+                            <Link to="#">Adimin <i className="fa fa-caret-down"></i></Link>
+                            <ul className="dropdown-content">
+                                <li><Link to="/dashboard">Dashboard</Link></li>
+                                <li><Link to="/products">Products</Link></li>
+                                <li><Link to="/orders">Orders</Link></li>
+                                <li><Link to="/users">Users</Link></li>
+                            </ul>
+                       </div> 
+                    )
+                }
+                {
                     userInfo ? (
                         <div className="dropdown">
                             <Link to="#">{userInfo.name} <i className="fa fa-caret-down"></i></Link>
