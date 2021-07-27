@@ -8,19 +8,19 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { ORDER_PAY_RESET } from '../constants/orderConstants';
 import FormPayment from '../components/FormPayment';
+// impo MercadoPago from 'mercadopago';
 
 export default function OrderScreen(props) {
 
     const orderId = props.match.params.id;
 
-    const [sdkReady, setSdkReady] = useState(false);
+    const [sdkPayu, setSdkPayu] = useState(false);
+    const [sdkMercado, setSdkMercado] = useState(false);
+
     const [errorPayment, setErrorPayment] = useState(null);
 
     const orderDetails = useSelector((state) => state.orderDetails);
     const { order, loading, error } = orderDetails;
-
-    // const cart = useSelector(state => state.cart);
-    // const { paymentMethod } = cart;
 
     const orderPaid = useSelector(state => state.payOrder);
     const { success: successPay } = orderPaid;
@@ -36,24 +36,70 @@ export default function OrderScreen(props) {
             script.src = `https://www.paypal.com/sdk/js?client-id=${data}`;
             script.async = true;
             script.onload = () => {
-                setSdkReady(true);
+                setSdkPayu(true);
             };
             document.body.appendChild(script);
         };
 
+        const addMercadoPagoScript = () => {
+            const script = document.createElement('script');
+            script.type = "text/javascript";
+            script.src = `https://sdk.mercadopago.com/js/v2`;
+            script.async = true;
+            script.onload = () => {
+                setSdkMercado(true);
+                loadButton();
+            };
+            document.body.appendChild(script);
+        };
+
+        const loadButton = async () => {
+            const { data } = await axios.post('/api/payment/mercado-pago/preference',{
+                "preference": {
+                    "items": [
+                    {
+                        "title": "Mi producto",
+                        "unit_price": 100,
+                        "quantity": 1
+                    }
+                    ]
+                }
+            });
+            const mp = new window.MercadoPago('APP_USR-c27a943d-1333-44c3-9f7d-01da1ac8856e', {
+                locale: 'es-CO'
+            });
+    
+            mp.checkout({
+                preference: {
+                    id: data
+                },
+                render: {
+                        container: '.cho-container', // Indica el nombre de la clase donde se mostrará el botón de pago
+                        label: 'Pagar', // Cambia el texto del botón de pago (opcional)
+                }
+            });
+        }
+
+
         if(successPay){
             dispatch({type: ORDER_PAY_RESET})
         }
-        
-        dispatch(detailsOrder(orderId));
+
+        if(!order){
+            dispatch(detailsOrder(orderId));
+        }
+
+        if(!window.MercadoPago){
+            addMercadoPagoScript();
+        }
 
         if (!window.paypal) {
             addPayPalScript();
         } else {
-            setSdkReady(true);
+            setSdkPayu(true);
         }
 
-    },[dispatch, orderId, successPay]);
+    },[dispatch, orderId, successPay, sdkMercado]);
 
     const successPaymentHandler = (paymentResult) => {
         dispatch(payOrder(order, paymentResult));
@@ -159,7 +205,7 @@ export default function OrderScreen(props) {
                                     {order.paymentMethod === 'Paypal' ?
                                     (
                                     <li>
-                                        {!sdkReady ? (<LoadingBox></LoadingBox>)
+                                        {!sdkPayu ? (<LoadingBox></LoadingBox>)
                                         :
                                         (
                                             <PayPalButton amount={order.totalPrice} onSuccess={successPaymentHandler} onError={errorPaymentHandler}></PayPalButton>
@@ -179,7 +225,13 @@ export default function OrderScreen(props) {
                                     )
                                     :
                                     (
-                                        <span>stripe</span>
+                                        <li>
+                                        {!sdkMercado ? (<LoadingBox></LoadingBox>)
+                                        :
+                                        (
+                                            <div className="cho-container"></div>
+                                        )}
+                                    </li>
                                     )
                                     }
                                     </>
@@ -189,6 +241,7 @@ export default function OrderScreen(props) {
                     </div>
                 </div>
             </div>
+            
         </div>
     )
 }

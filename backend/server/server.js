@@ -6,6 +6,7 @@ const userRouter = require('../routers/userRouter');
 const orderRouter = require('../routers/orderRouter');
 const productRouter = require('../routers/productRouter');
 const paymentPayuRouter = require('../routers/paymentPayuRouter');
+const mercadoPagoRouter = require('../routers/payments/mercadoPagoRouter');
 
 dotenv.config();
 
@@ -34,6 +35,7 @@ app.use('/api/users', userRouter);
 app.use('/api/products', productRouter);
 app.use('/api/orders', orderRouter);
 app.use('/api/payment/payu', paymentPayuRouter);
+app.use('/api/payment/mercado-pago', mercadoPagoRouter);
 
 //Middleware control errors
 app.use((err, req, res, next) =>{

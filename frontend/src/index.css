@@ -103,7 +103,7 @@ button:hover{
 button.primary{
   background-color: #f0c040;
 }
-button.block{
+.cho-container, button.block{
   width: 100%;
 }
 /* Home Screen */
