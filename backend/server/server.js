@@ -1,11 +1,10 @@
-/* eslint-disable no-undef */
 const express = require('express');
 const path = require('path');
 
-const productRouter = require('../routers/productRouter');
-const userRouter = require('../routers/userRouter');
 const dotenv = require('dotenv');
+const userRouter = require('../routers/userRouter');
 const orderRouter = require('../routers/orderRouter');
+const productRouter = require('../routers/productRouter');
 const paymentPayuRouter = require('../routers/paymentPayuRouter');
 
 dotenv.config();
@@ -13,20 +12,19 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 5000;
 
-
-
 // ---------------------------------------------------------------------
 app.get('/api/config/paypal', (req, res) => {
   res.send(process.env.PAYPAL_CLIENT_ID || 'sb');
 });
 
-app.get('/', (req,res) => {
-  res.sendFile(path.join(__dirname, 'public/build/index.html'));
+//render del campilado
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/frontend/index.html'));
 });
 
 // ------------------------------------------------------------------
 // carga del compilado
-app.use(express.static(path.join(__dirname, 'public/build')));
+app.use(express.static(path.join(__dirname, '../public/frontend')));
 
 //lectura de json request
 app.use(express.json());
