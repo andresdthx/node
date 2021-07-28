@@ -100,12 +100,20 @@ button{
 button:hover{
   border: 0.1rem #404040 solid;
 }
-button.primary{
-  background-color: #f0c040;
+button.primary, .mercadopago-button{
+  background-color: #f0c040 !important;
+  color: #000000 !important;
 }
-.cho-container, button.block{
+button.danger{
+  background: #a02020;
+  color: #eeffe0;
+}
+.mercadopago-button,
+.cho-container,
+button.block{
   width: 100%;
 }
+
 /* Home Screen */
 .products{
   display: flex;
@@ -243,6 +251,11 @@ img.large{
 }
 .success{
   color: #20a020;
+  font-weight: bold;
+}
+.danger{
+  color: #f02020;
+  font-weight: bold;
 }
 .error{
   color: #a02020;

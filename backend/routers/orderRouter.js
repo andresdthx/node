@@ -1,5 +1,7 @@
 const express = require('express');
 const expressAsyncHandler = require('express-async-handler');
+const { getOrders, getOrdersByUser } = require('../controllers/OrderController');
+const { validateAdmin } = require('../middleware/order.middleware');
 const Order = require('../db/models/orderModel');
 const { isAuth } = require('../middleware/utils');
 
@@ -51,15 +53,29 @@ orderRouter.put('/:id/pay', isAuth, expressAsyncHandler(async (req, res) =>{
     }
 }));
 
-orderRouter.post('/history', expressAsyncHandler(async(req, res)=>{
-    const ObjectId = require('mongodb').ObjectId; 
-    const id = req.body.id;
-    const orders = await Order.find({user: ObjectId(id)});
+orderRouter.post('/list', expressAsyncHandler(async(req, res)=>{
+    const orders = await getOrdersByUser(req.body);
+
     if(orders){
         res.send(orders);
     } else {
-        res.status(404).send('Not Fount');
+        res.status(404).send('Not Found');
+    }
+}));
+
+orderRouter.post('/list/all', validateAdmin, expressAsyncHandler( async(req, res) => {
+    const orders = await getOrders();
+    if(orders) {
+        res.send(orders);
+    } else {
+        res.status(404).send('Not Found');
     }
 }))
+ 
+orderRouter.delete('/:id', isAuth, async(req, res) => {
+    const id = req.params.id;
+    const order = await Order.deleteOne({ _id: id });
+    res.send(order);
+})
 
 module.exports = orderRouter;

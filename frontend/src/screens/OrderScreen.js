@@ -1,4 +1,4 @@
-import { detailsOrder, payOrder } from '../actions/orderActions';
+import { deleteOrder, detailsOrder, payOrder } from '../actions/orderActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { PayPalButton } from 'react-paypal-button-v2';
 import React, { useEffect, useState } from 'react';
@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { ORDER_PAY_RESET } from '../constants/orderConstants';
 import FormPayment from '../components/FormPayment';
-// impo MercadoPago from 'mercadopago';
 
 export default function OrderScreen(props) {
 
@@ -17,10 +16,13 @@ export default function OrderScreen(props) {
     const [sdkPayu, setSdkPayu] = useState(false);
     const [sdkMercado, setSdkMercado] = useState(false);
 
-    const [errorPayment, setErrorPayment] = useState(null);
+    // const [errorPayment, setErrorPayment] = useState(null);
 
     const orderDetails = useSelector((state) => state.orderDetails);
     const { order, loading, error } = orderDetails;
+
+    const removeOrder = useSelector((state => state.orderDelete));
+    const { success: successDelete } = removeOrder;
 
     const orderPaid = useSelector(state => state.payOrder);
     const { success: successPay } = orderPaid;
@@ -85,12 +87,13 @@ export default function OrderScreen(props) {
             dispatch({type: ORDER_PAY_RESET})
         }
 
-        if(!order){
-            dispatch(detailsOrder(orderId));
-        }
+        dispatch(detailsOrder(orderId));
 
         if(!window.MercadoPago){
             addMercadoPagoScript();
+        } else {
+            loadButton();
+            setSdkMercado(true);
         }
 
         if (!window.paypal) {
@@ -99,14 +102,21 @@ export default function OrderScreen(props) {
             setSdkPayu(true);
         }
 
-    },[dispatch, orderId, successPay, sdkMercado]);
+    },[dispatch, orderId, successPay]);
 
     const successPaymentHandler = (paymentResult) => {
         dispatch(payOrder(order, paymentResult));
     }
 
     const errorPaymentHandler = (paymentResult) => {
-        setErrorPayment(paymentResult);
+        // setErrorPayment(paymentResult);
+    }
+
+    const orderDelete = () => {
+        dispatch(deleteOrder(orderId));
+        if(successDelete){
+            props.history.push('/orderhistory');
+        }
     }
     
     return loading ? (<LoadingBox></LoadingBox>):
@@ -122,6 +132,12 @@ export default function OrderScreen(props) {
                         <li>
                             <div className="card card-body">
                                 <h2>Order: {order._id}</h2>
+                                {
+                                    !order.isPaid && 
+                                    (
+                                        <button className="danger" onClick={() => orderDelete()}>Delete order</button>
+                                    )
+                                }
                             </div>
                         </li>
                         <li>
@@ -210,11 +226,6 @@ export default function OrderScreen(props) {
                                         (
                                             <PayPalButton amount={order.totalPrice} onSuccess={successPaymentHandler} onError={errorPaymentHandler}></PayPalButton>
                                         )}
-                                        {
-                                            errorPayment && (
-                                                <MessageBox variant="danger">{errorPayment}</MessageBox>
-                                            )
-                                        }
                                     </li>
                                     )
                                     : order.paymentMethod === 'pse' ?

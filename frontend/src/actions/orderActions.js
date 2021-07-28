@@ -4,12 +4,17 @@ import {
     ORDER_CREATE_FAIL,
     ORDER_CREATE_REQUEST,
     ORDER_CREATE_SUCCESS,
+    ORDER_DELETE_REQUEST,
+    ORDER_DELETE_SUCCESS,
     ORDER_DETAILS_FAIL,
     ORDER_DETAILS_REQUEST,
     ORDER_DETAILS_SUCCESS,
     ORDER_HISTORY_FAIL,
     ORDER_HISTORY_REQUEST,
     ORDER_HISTORY_SUCCESS,
+    ORDER_LIST_ADMIN_FAIL,
+    ORDER_LIST_ADMIN_REQUEST,
+    ORDER_LIST_ADMIN_SUCCESS,
     ORDER_PAY_FAIL,
     ORDER_PAY_REQUEST,
     ORDER_PAY_SUCCESS
@@ -92,8 +97,8 @@ export const orderHistory = () => async (dispatch, getState) => {
     try {
         const { userSignin: { userInfo } } = getState();
 
-        const { data } = await axios.post('/api/orders/history',
-        { id: userInfo._id },
+        const { data } = await axios.post('/api/orders/list',
+        { id: userInfo._id, isAdmin: userInfo.isAdmin },
         {headers: { Authorization: `Bearer ${userInfo.token}` }}
         );
 
@@ -107,5 +112,53 @@ export const orderHistory = () => async (dispatch, getState) => {
             ? error.response.data.message
             : error.message,
         });
+    }
+}
+
+export const deleteOrder = (orderId) => async (dispatch, getState) => {
+    dispatch({ type: ORDER_DELETE_REQUEST });
+    const { userSignin: { userInfo } } = getState();
+
+    try {
+        const { data } = await axios.delete(`/api/orders/${orderId}`, {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`,
+            },
+        });
+        dispatch( { type: ORDER_DELETE_SUCCESS, payload: data.deleteCount })
+    } catch (error) {
+        dispatch({
+            type: ORDER_HISTORY_FAIL,
+            payload:
+            error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+        });
+    }
+}
+
+export const  listOrdersAdmin = () => async (dispatch, getState) => {
+    dispatch({ type: ORDER_LIST_ADMIN_REQUEST });
+
+    const { userSignin: { userInfo } } = getState();
+
+    try {
+        const { data } = await axios.post('/api/orders/list/all', {
+            id: userInfo._id,
+            isAdmin: userInfo.isAdmin
+        }, {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        });
+        dispatch({ type: ORDER_LIST_ADMIN_SUCCESS, payload: data });
+    } catch (error) {
+        dispatch({
+            type: ORDER_LIST_ADMIN_FAIL,
+            payload:
+            error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+        }); 
     }
 }

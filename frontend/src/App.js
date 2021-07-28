@@ -16,6 +16,8 @@ import ProfileScreen from './screens/ProfileScreen';
 import PrivateRoute from './components/PrivateRoute';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import AdminOrderScreen from './screens/AdminOrderScreen';
+import PrivateRouteAdmin from './components/PrivateRouteAdmin';
 
 function App() {
 
@@ -49,6 +51,8 @@ function App() {
                 <Route path="/order/:id" component={OrderScreen}></Route>
                 <Route path="/orderhistory" component={OrderHistoryScreen}></Route>
                 <PrivateRoute path="/profile" component={ProfileScreen}></PrivateRoute>
+
+                <PrivateRouteAdmin path="/admin/orders" component={AdminOrderScreen}></PrivateRouteAdmin>
             </HashRouter>
         </main>
 
