@@ -22,7 +22,7 @@ export default function Header() {
         <header className="header">
             <div className="brand">
                 <button>&#9776;</button>
-                <Link to="/">S</Link>
+                <Link to="/">S </Link>
             </div>
             
             <div className="header-links">
