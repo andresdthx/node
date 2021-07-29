@@ -1,6 +1,6 @@
 const express = require('express');
 const expressAsyncHandler = require('express-async-handler');
-const { getOrders, getOrdersByUser } = require('../controllers/OrderController');
+const { getOrders, getOrdersByUser } = require('../controllers/orderController');
 const { validateAdmin } = require('../middleware/order.middleware');
 const Order = require('../db/models/orderModel');
 const { isAuth } = require('../middleware/utils');
