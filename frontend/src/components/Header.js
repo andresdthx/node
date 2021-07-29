@@ -22,12 +22,12 @@ export default function Header() {
         <header className="header">
             <div className="brand">
                 <button>&#9776;</button>
-                <Link to="/">Ecommerce</Link>
+                <Link to="/">S</Link>
             </div>
             
             <div className="header-links">
                 <Link to="/cart">
-                    Cart
+                    <i class="fas fa-shopping-cart"></i>
                     {cartItems.length > 0 && (
                         <span className="badge"> {cartItems.length} </span>
                     )}
@@ -35,7 +35,11 @@ export default function Header() {
                 {
                     userInfo && userInfo.isAdmin && (
                         <div className="dropdown">
-                            <Link to="#">Admin <i className="fa fa-caret-down"></i></Link>
+                            <Link to="#">
+                                <span><i class="fas fa-users-cog"></i></span>
+                                <span>Admin</span>
+                                <span><i className="fa fa-caret-down"></i></span>
+                            </Link>
                             <ul className="dropdown-content">
                                 <li><Link to="/admin/dashboard">Dashboard</Link></li>
                                 <li><Link to="/admin/products">Products</Link></li>
@@ -48,7 +52,11 @@ export default function Header() {
                 {
                     userInfo ? (
                         <div className="dropdown">
-                            <Link to="#">{userInfo.name} <i className="fa fa-caret-down"></i></Link>
+                            <Link to="#">
+                                <span><i class="fas fa-user"></i></span>
+                                <span>{userInfo.name}</span>
+                                <span><i className="fa fa-caret-down"></i></span>
+                            </Link>
                             <ul className="dropdown-content">
                                 <li><Link to="/profile">Profile</Link></li>
                                 <li><Link to="/orderhistory">Order history</Link></li>
@@ -58,7 +66,10 @@ export default function Header() {
                     )
                     :
                     (
-                        <Link to="/signin">Sign In</Link>
+                        <Link to="/signin">
+                            <span><i class="fas fa-user"></i></span>
+                            <span>Sign In</span>
+                        </Link>
                     )
                 }
             </div>

@@ -51,7 +51,11 @@ body{
 .header-links a{
   color: #ffff;
   text-decoration: none;
-  padding: 0.3rem;
+  padding: 0 0.8rem;
+  border-left: 0.1rem solid #e0e0ff;
+}
+.header-links a span{
+  padding: 0 0.3rem;
 }
 .header-links a:hover{
   color: #ff8000;
@@ -434,5 +438,53 @@ td, th {
 
 tr:nth-child(even) {
   background-color: #f0efef;
+}
+
+/* Home page styles */
+@import url('https://fonts.googleapis.com/css?family=Kaushan+Script&display=swap');
+.home-list{
+  padding-top: 5rem;
+}
+.home-brand ul {
+  padding: 0;
+  margin: 0;
+  /* margin: 0 auto; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+.home-brand ul li{
+  position: relative;
+  margin: 0 auto;
+  padding: 1rem;
+}
+.brand-image{
+  max-width: 100%;
+}
+.brand-title-image-men,
+.brand-title-image-woman
+{
+  position: absolute;
+  color: #eeffe0;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+.brand-title-image-woman{
+  font-family: Kaushan Script, serif;;
+  border-radius: 0.5rem;
+  color: #e0e0ff;
+  font-size: 6rem;
+  text-shadow: 6px 5px 6px #000000;
+  padding: 1rem;
+  font-weight: bold;
+}
+.brand-title-image-men{
+  font-family: Georgia, Cambria, Times, "Times New Roman";
+  font-weight: 500;
+  font-size: 6rem;
+  text-shadow: 6px 5px 6px #000000;
+  border-bottom: 0.5rem solid #eeffe0;
 }
 
