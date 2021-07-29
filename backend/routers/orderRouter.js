@@ -1,81 +1,69 @@
+const { getOrders,
+        getOrdersByUser, 
+        getOrder, 
+        updateOrder, 
+        deleteOrder,
+        createOrder
+} = require('../controllers/orderController');
 const express = require('express');
-const expressAsyncHandler = require('express-async-handler');
-const { getOrders, getOrdersByUser } = require('../controllers/orderController');
-const { validateAdmin } = require('../middleware/order.middleware');
 const Order = require('../db/models/orderModel');
-const { isAuth } = require('../middleware/utils');
+const { isAuth } = require('../middleware/user.middleware');
+const { success, errors } = require('../network/response');
+const expressAsyncHandler = require('express-async-handler');
+const { validateAdmin, validateCart } = require('../middleware/order.middleware');
 
 const orderRouter = express.Router();
 
-orderRouter.post('/', isAuth, expressAsyncHandler(async(req, res) =>{
-    if(req.body.orderItems.length === 0){
-        res.status(400).send({message: 'Cart is empty'});
-    } else {
-        const order = new Order({
-            orderItems: req.body.orderItems,
-            shippingAddress: req.body.shippingAddress,
-            paymentMethod: req.body.paymentMethod,
-            itemsPrice: req.body.itemsPrice,
-            shippingPrice: req.body.shippingPrice,
-            taxPrice: req.body.taxPrice,
-            totalPrice: req.body.totalPrice,
-            user: req.user._id
-        });
-        const createdOrder = await order.save();
-        res.status(201).send({message: 'new order created', order: createdOrder});
+orderRouter.post('/', isAuth, validateCart, expressAsyncHandler(async(req, res) => {
+    try {
+        const order = await createOrder(req.body, req.user);
+        success(req, res, {message: 'new order created', order: order}, 201);
+    } catch (err) {
+        errors(req, res, err.message, err.status);
     }
 }));
 
 orderRouter.get('/:id', isAuth, expressAsyncHandler(async(req, res) =>{
-    const order = await Order.findById(req.params.id);
-    if(order){
-        res.send(order);
-    } else {
-        res.status(404).send('Order Not Found');
+    try {
+        const order = await getOrder(req.params.id);
+        success(req, res, order);
+    } catch (error) {
+        errors(req, res, error.message, error.status);
     }
 }));
 
 orderRouter.put('/:id/pay', isAuth, expressAsyncHandler(async (req, res) =>{
-    const order = await Order.findById(req.params.id);
-    if(order){
-        order.isPaid = true;
-        order.paidAt = Date.now();
-        order.paymentResult = {
-            id: req.body.id,
-            status: req.body.status,
-            update_time: req.body.update_time,
-            email_address: req.body.payer.email_address,
-        }
-        const updateOrder = await order.save();
-        res.send({message: 'Order paid', order: updateOrder})
-    } else {
-        res.status(404).send({message: 'Order not found'});
+    try {
+        const order = await getOrder(req.params.id);
+        const orderUpdate = await updateOrder(order, req.body);
+
+        success(req, res, orderUpdate);
+    } catch (error) {
+        errors(req, res, error.message, error.status);
     }
 }));
 
-orderRouter.post('/list', expressAsyncHandler(async(req, res)=>{
-    const orders = await getOrdersByUser(req.body);
-
-    if(orders){
-        res.send(orders);
-    } else {
-        res.status(404).send('Not Found');
+orderRouter.post('/list', isAuth, expressAsyncHandler(async(req, res)=>{
+    try {
+        const orders = await getOrdersByUser(req.body);
+        success(req, res, orders);
+    } catch (error) {
+        errors(req, res, error.message, error.status);
     }
 }));
 
 orderRouter.post('/list/all', validateAdmin, expressAsyncHandler( async(req, res) => {
-    const orders = await getOrders();
-    if(orders) {
-        res.send(orders);
-    } else {
-        res.status(404).send('Not Found');
+    try {
+        const orders = await getOrders();
+        success(req, res, orders);
+    } catch (error) {
+        errors(req, res, error.message, error.status);
     }
-}))
+}));
  
 orderRouter.delete('/:id', isAuth, async(req, res) => {
-    const id = req.params.id;
-    const order = await Order.deleteOne({ _id: id });
-    res.send(order);
+    const order = await deleteOrder(req.params.id);
+    success(req, res, order);
 })
 
 module.exports = orderRouter;

@@ -1,10 +1,10 @@
 const data = require('../data');
 const express = require('express');
 const bcrypt = require('bcryptjs');
-const { isAuth } = require('../middleware/utils');
-const { generateToken } = require('../middleware/utils');
 const User = require('../db/models/userModel');
+const { isAuth } = require('../middleware/user.middleware');
 const expressAsyncHandler = require('express-async-handler');
+const { generateToken } = require('../middleware/user.middleware');
 
 const userRouter = express.Router();
 

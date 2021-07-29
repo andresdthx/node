@@ -1,5 +1,6 @@
 
 const jwt = require('jsonwebtoken');
+const { errors } = require('../network/response');
 
 const generateToken = (user) =>{
     return jwt.sign(
@@ -23,14 +24,14 @@ const isAuth = (req, res, next) => {
         const token = authorization.slice(7, authorization.length); //Bearer XXXXX
         jwt.verify(token, process.env.JWT_SECRET || 'somethingsecret', (err, decode) =>{
             if(err){
-                res.status(401).send({message: 'Invalid token'});
+                errors(req, res, 'invalid token', 401);
             } else {
                 req.user = decode;
                 next();
             }
         });
     } else {
-        res.status(401).send({message: authorization});
+        errors(req, res, 'not token', 401);
     }
 }
 

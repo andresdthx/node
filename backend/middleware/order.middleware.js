@@ -1,11 +1,24 @@
+const { error } = require("../network/response");
+
 const validateAdmin = (req, res, next) => {
     const { isAdmin } = req.body;
     if(!isAdmin){
-        res.status(401).send('No authorized');
+        error(req, res, 'Not authirized', 401);
     }
     next();
 }
 
+const validateCart = (req, res, next) => {
+    const { orderItems } = req.body;
+    
+    if(orderItems.length === 0) {
+        error(req, res, 'Cart is empty');
+    }
+
+    next();
+}
+
 module.exports = {
-    validateAdmin
+    validateAdmin,
+    validateCart
 }
