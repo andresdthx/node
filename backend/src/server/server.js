@@ -20,12 +20,12 @@ app.get('/api/config/paypal', (req, res) => {
 
 //render del campilado
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/frontend/index.html'));
+  res.sendFile(path.join(__dirname, '../../public/frontend/index.html'));
 });
 
 // ------------------------------------------------------------------
 // carga del compilado
-app.use(express.static(path.join(__dirname, '../public/frontend')));
+app.use(express.static(path.join(__dirname, '../../public/frontend')));
 
 //lectura de json request
 app.use(express.json());

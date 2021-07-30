@@ -1,6 +1,7 @@
 import React from 'react'
 import Rating from './Rating';
 import { Link } from 'react-router-dom';
+import { CardMedia } from '@material-ui/core';
 
 export default function Product(props) {
     const {product} = props;

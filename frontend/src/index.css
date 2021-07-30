@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Kaushan+Script|Roboto&display=swap');
+
 html{
   font-size: 62.5%;
   box-sizing: border-box; /* ayuda a darle una mejor forma a los div y conteiners  */
@@ -10,6 +12,7 @@ body{
   font-size: 1.6rem;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: Roboto, serif;
 }
 #root{
   height: 100%;
@@ -88,6 +91,7 @@ li{
 input,
 select,
 textarea,
+.MuiButtonBase-root,
 button{
   padding: 1rem;
   border-radius: 0.5rem;
@@ -104,9 +108,18 @@ button{
 button:hover{
   border: 0.1rem #404040 solid;
 }
+.secundary:hover{
+  background-color: #5e5e5e;
+}
 button.primary, .mercadopago-button{
   background-color: #f0c040 !important;
   color: #000000 !important;
+}
+button.secundary{
+  border:none;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  background-color: #eeffe0 !important;
+  color: #4e4e4e !important;
 }
 button.danger{
   background: #a02020;
@@ -224,9 +237,15 @@ button.block{
   border: 1px solid black;
 }
 .card {
-  border: 0.1rem solid #808080;
-  border-radius: 1rem;
+  background: #fafafa;
+  border-radius: 0.5rem;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 8px;
   margin: 2rem;
+  /* padding: 5rem; */
+  /* padding-left: 10px; */
+}
+.card-body {
+  padding: 2rem;
 }
 .card ul li{
   list-style-type: none;
@@ -289,6 +308,9 @@ img.large{
 /* Cart Screen */
 .shopping{
   padding: 4rem 2rem;
+  /* margin: 0 20rem 0 20rem; */
+  width: 70%;
+  margin: 0 auto;
   /* padding-top: 2rem;
   display: flex;
   flex-wrap: wrap;
@@ -430,18 +452,40 @@ table th{
   text-transform: uppercase;
 }
 
-td, th {
-  border: 1px solid #dddddd;
+tr, td {
   text-align: left;
   padding: 8px;
 }
+tr > th {
+  font-size: 1.2rem;
+}
+
+tr > td:first-child {
+  display: flex;
+  flex-wrap: wrap;
+  /* margin: 1rem; */
+  /* justify-content: space-evenly; */
+}
+
+.details-cart{
+  margin-left: 1rem;
+}
+.details-cart a{
+  font-weight: bold;
+  font-family: Roboto, serif;
+  color: #474646;
+}
 
 tr:nth-child(even) {
-  background-color: #f0efef;
+  border-bottom: 1px solid #c4c3c3;
+  /* background-color: #f0efef; */
+}
+tr:last-child {
+  border-bottom: 1px solid #c4c3c3;
+  /* background-color: #f0efef; */
 }
 
 /* Home page styles */
-@import url('https://fonts.googleapis.com/css?family=Kaushan+Script&display=swap');
 .home-list{
   padding-top: 5rem;
 }
@@ -486,5 +530,16 @@ tr:nth-child(even) {
   font-size: 6rem;
   text-shadow: 6px 5px 6px #000000;
   border-bottom: 0.5rem solid #eeffe0;
+}
+
+/* Checkout style */
+
+.checkout-step {
+  font-size: 5rem !important;
+}
+.MuiStepLabel-label,
+.MuiStepIcon-text,
+.MuiStepIcon-root{
+  font-size: 2rem !important;
 }
 

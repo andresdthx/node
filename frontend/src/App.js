@@ -3,9 +3,7 @@ import ProductScreen from './screens/ProductScreen';
 import HomeScreen from './screens/HomeScreen';
 import CartScreen from './screens/CartScreen';
 import { Link } from 'react-router-dom';
-// import { useDispatch, useSelector } from 'react-redux';
 import SigninScreen from './screens/SigninScreen';
-// import { signout } from './actions/userActions';
 import RegisterScreen from './screens/RegisterScreen';
 import ShippingAddressScreen from './screens/ShippingAddressScreen';
 import PaymentMethodScreen from './screens/PaymentMethodScreen';
@@ -14,10 +12,11 @@ import OrderScreen from './screens/OrderScreen';
 import OrderHistoryScreen from './screens/OrderHistoryScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import PrivateRoute from './components/PrivateRoute';
-import Header from './components/Header';
-import Footer from './components/Footer';
+import Header from './components/common/Header';
+import Footer from './components/common/Footer';
 import AdminOrderScreen from './screens/AdminOrderScreen';
 import PrivateRouteAdmin from './components/PrivateRouteAdmin';
+import Checkout from './components/checkout/CheckoutSteps';
 
 function App() {
 
@@ -38,7 +37,7 @@ function App() {
             </ul>
         </aside>
 
-        <main className="main">
+        {/* <main className="main"> */}
             <HashRouter>
                 <Route path="/signin" component={SigninScreen}></Route>
                 <Route path="/register" component={RegisterScreen}></Route>
@@ -46,6 +45,7 @@ function App() {
                 <Route path="/product/:id" component={ProductScreen}></Route>
                 <Route path="/" component={HomeScreen} exact></Route>
                 <Route path="/shipping" component={ShippingAddressScreen}></Route>
+                <Route path="/checkout" component={Checkout}></Route>
                 <Route path="/payment" component={PaymentMethodScreen}></Route>
                 <Route path="/placeorder" component={PlaceOrderScreen}></Route>
                 <Route path="/order/:id" component={OrderScreen}></Route>
@@ -54,7 +54,7 @@ function App() {
 
                 <PrivateRouteAdmin path="/admin/orders" component={AdminOrderScreen}></PrivateRouteAdmin>
             </HashRouter>
-        </main>
+        {/* </main> */}
 
         <HashRouter>
             <Footer></Footer>

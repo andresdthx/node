@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { savePaymentMethod } from '../actions/cartActions';
-import CheckoutSteps from '../components/CheckoutSteps';
+import CheckoutSteps from '../components/checkout/CheckoutSteps';
 
 export default function PaymentMethodScreen(props) {
 
@@ -23,7 +23,7 @@ export default function PaymentMethodScreen(props) {
 
     return (
         <div>
-            <CheckoutSteps step1 step2 step3></CheckoutSteps>
+            <CheckoutSteps step="3" />
 
             <form className="form" onSubmit={submitHandler}>
                 <div>
@@ -46,7 +46,12 @@ export default function PaymentMethodScreen(props) {
                     </div>
                     <div>
                         <label/>
-                        <button className="primary" type="submit">Continue</button>
+                        <button className="primary block" type="submit">Continue</button>
+                    </div>
+
+                    <div>
+                        <label/>
+                        <button className="secundary block" type="button" onClick={() => props.history.push('/shipping')}>back</button>
                     </div>
                 </div>
             </form>

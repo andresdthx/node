@@ -131,7 +131,7 @@ export default function OrderScreen(props) {
                     <ul>
                         <li>
                             <div className="card card-body">
-                                <h2>Order: {order._id}</h2>
+                                <h3>Order: {order._id}</h3>
                                 {
                                     !order.isPaid && 
                                     (
@@ -142,7 +142,7 @@ export default function OrderScreen(props) {
                         </li>
                         <li>
                             <div className="card card-body">
-                                <h2>Shipping</h2>
+                                <h3>Shipping</h3>
                                 <p>
                                     <strong>Name: </strong>{order.shippingAddress.fullName} <br/>
                                     <strong>Address: </strong> {order.shippingAddress.address}, 
@@ -158,7 +158,7 @@ export default function OrderScreen(props) {
                         </li>
                         <li>
                             <div className="card card-body">
-                                <h2>Payment</h2>
+                                <h3>Payment</h3>
                                 <p>
                                     <strong>Method: </strong>{order.paymentMethod} <br/>
                                 </p>
@@ -171,7 +171,7 @@ export default function OrderScreen(props) {
                         </li>
                         <li>
                             <div className="card card-body">
-                                <h2>Order items</h2>
+                                <h3>Order items</h3>
                                     <div className="shopping-cart">
                                         {order.orderItems.map((x) => (
                                             <div className="products-cart" key={x.product}>
@@ -189,7 +189,7 @@ export default function OrderScreen(props) {
                     <div className="card card-body">
                         <ul>
                             <li>
-                                <h2>Order summary</h2>
+                                <h3>Order summary</h3>
                             </li>
                             <li>
                                 <div className="row">

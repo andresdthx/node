@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { signout } from '../actions/userActions';
+import { signout } from '../../actions/userActions';
 
 export default function Header() {
 

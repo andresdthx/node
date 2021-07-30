@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { create } from '../actions/orderActions';
 import { addToCart } from '../actions/cartActions';
-import CheckoutSteps from '../components/CheckoutSteps';
+import CheckoutSteps from '../components/checkout/CheckoutSteps';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { ORDER_CREATE_RESET } from '../constants/orderConstants';
@@ -38,7 +38,8 @@ export default function PlaceOrderScreen(props) {
     }, [dispatch, props.history, order, success])
     return (
         <div>
-            <CheckoutSteps step1 step2 step3 step4></CheckoutSteps>
+            <CheckoutSteps step="4" />
+            
             <div className="row top">
                 <div className="col-2">
                     <ul>
@@ -120,6 +121,10 @@ export default function PlaceOrderScreen(props) {
                             </li>
                             <li>
                                 <button type="button" onClick={placeOrderHandler} disabled={cart.cartItems.length === 0} className="primary block">Place order</button>
+                            </li>
+                            <li>
+                                {/* <label/> */}
+                                <button className="secundary block" type="button" onClick={() => props.history.push('/payment')}>back</button>
                             </li>
                             {loading && <LoadingBox></LoadingBox>}
                             {error && <MessageBox variant="danger">{error}</MessageBox>}
