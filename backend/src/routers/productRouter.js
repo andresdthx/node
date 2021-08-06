@@ -2,6 +2,8 @@ const express = require('express');
 const expressAsyncHandler = require('express-async-handler');
 const data = require('../data');
 const Product = require('../db/models/productModel');
+const { success, errors } = require('../network/response');
+const { updateProduct, getProduct } = require('../controllers/productController');
 
 const productRouter = express.Router();
 
@@ -32,5 +34,19 @@ productRouter.get(
         }
     })
 );
+
+productRouter.put('/update/:id', expressAsyncHandler(async(req, res) => {
+    try {
+        const id = req.params.id;
+        const data = req.body.data;
+        
+        const product = await getProduct(id);
+        const updatedProduct = await updateProduct(product, data);
+        success(req, res, updatedProduct);
+
+    } catch (error) {
+        errors(req, res, error.message, error.status);
+    }
+}));
 
 module.exports = productRouter;

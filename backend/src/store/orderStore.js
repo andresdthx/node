@@ -1,6 +1,6 @@
 const Order = require('../db/models/orderModel');
 
-const createOrder = async (data, user) => {
+const createOrder = async (user) => {
     const order = new Order({
         orderItems: data.orderItems,
         shippingAddress: data.shippingAddress,

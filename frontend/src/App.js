@@ -17,6 +17,8 @@ import Footer from './components/common/Footer';
 import AdminOrderScreen from './screens/AdminOrderScreen';
 import PrivateRouteAdmin from './components/PrivateRouteAdmin';
 import Checkout from './components/checkout/CheckoutSteps';
+import AdminProductScreen from './screens/AdminProductScreen';
+import EditProductScreen from './screens/EditProductScreen';
 
 function App() {
 
@@ -43,6 +45,7 @@ function App() {
                 <Route path="/register" component={RegisterScreen}></Route>
                 <Route path="/cart/:id?" component={CartScreen}></Route> 
                 <Route path="/product/:id" component={ProductScreen}></Route>
+                <Route path="/edit/product/:id" component={EditProductScreen}></Route>
                 <Route path="/" component={HomeScreen} exact></Route>
                 <Route path="/shipping" component={ShippingAddressScreen}></Route>
                 <Route path="/checkout" component={Checkout}></Route>
@@ -53,6 +56,7 @@ function App() {
                 <PrivateRoute path="/profile" component={ProfileScreen}></PrivateRoute>
 
                 <PrivateRouteAdmin path="/admin/orders" component={AdminOrderScreen}></PrivateRouteAdmin>
+                <PrivateRouteAdmin path="/admin/products" component={AdminProductScreen}></PrivateRouteAdmin>
             </HashRouter>
         {/* </main> */}
 
