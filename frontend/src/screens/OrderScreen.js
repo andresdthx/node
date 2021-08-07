@@ -67,7 +67,7 @@ export default function OrderScreen(props) {
                     ]
                 }
             });
-            const mp = new window.MercadoPago('APP_USR-c27a943d-1333-44c3-9f7d-01da1ac8856e', {
+            const mp = new window.MercadoPago('TEST-8880b620-b177-4bb3-b649-682bba3be44c', {
                 locale: 'es-CO'
             });
     

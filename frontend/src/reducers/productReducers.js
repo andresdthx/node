@@ -4,7 +4,10 @@ const {
     PRODUCT_LIST_SUCCESS,
     PRODUCT_DETAILS_REQUEST,
     PRODUCT_DETAILS_FAIL,
-    PRODUCT_DETAILS_SUCCESS
+    PRODUCT_DETAILS_SUCCESS,
+    PRODUCT_UPDATE_REQUEST,
+    PRODUCT_UPDATE_SUCCESS,
+    PRODUCT_UPDATE_FAIL
 } = require("../constants/productConstants");
 
 export const productListReducer = (state = { loading: true, products: [] }, action) => {
@@ -20,13 +23,26 @@ export const productListReducer = (state = { loading: true, products: [] }, acti
     }
 }
 
-export const productDetailsReducer = (state = {loading: true, product: {}}, action) =>{
+export const productDetailsReducer = (state = {loading: true}, action) =>{
     switch (action.type) {
         case PRODUCT_DETAILS_REQUEST:
             return { loading: true };
         case PRODUCT_DETAILS_SUCCESS:
             return {loading: false, product: action.payload};
         case PRODUCT_DETAILS_FAIL:
+            return { loading: false, error: action.payload };
+        default:
+            return state;
+    }
+}
+
+export const productUpdateReducer = ( state = { loading: true, success: false }, action) => {
+    switch (action.type) {
+        case PRODUCT_UPDATE_REQUEST:
+            return { loading: true };
+        case PRODUCT_UPDATE_SUCCESS:
+            return { loading: false, product: action.payload, success: true };
+        case PRODUCT_UPDATE_FAIL:
             return { loading: false, error: action.payload };
         default:
             return state;

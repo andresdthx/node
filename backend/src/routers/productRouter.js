@@ -38,7 +38,7 @@ productRouter.get(
 productRouter.put('/update/:id', expressAsyncHandler(async(req, res) => {
     try {
         const id = req.params.id;
-        const data = req.body.data;
+        const data = req.body.product;
         
         const product = await getProduct(id);
         const updatedProduct = await updateProduct(product, data);

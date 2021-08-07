@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { detailsProduct } from '../actions/productActions';
+import { detailsProduct, updateProduct } from '../actions/productActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
+// import swal from 'sweetalert';
 
 export default function EditProductScreen(props) {
 
@@ -13,22 +14,39 @@ export default function EditProductScreen(props) {
     const productDetail = useSelector( state => state.productDetail);
     const { product, loading, error } = productDetail;
 
-    const [brand, setBrand] = useState(product.brand);
+    const productUpdate = useSelector( state => state.productUpdate);
+    const { success, error: errorUpdated } = productUpdate;
+
+    const [brand, setBrand] = useState();
     const [name, setName] = useState();
     const [category, setCategory] = useState();
     const [price, setPrice] = useState();
-    const [stock, setStock] = useState();
+    const [countInStock, setStock] = useState();
     const [description, setDescription] = useState();
 
     useEffect(() => {
-        dispatch(detailsProduct(productId));
-        // setBrand(product.brand);
-        // setBrand(product.name);
-        // setBrand(product.category);
-        // setBrand(product.price);
-        // setBrand(product.stock);
-        // setBrand(product.description);
-    }, [dispatch]);
+        
+        if(product){
+                setBrand(product.brand);
+                setName(product.name);
+                setCategory(product.category);
+                setPrice(product.price);
+                setStock(product.countInStock);
+                setDescription(product.description);
+                if (product._id !== productId) {
+                    dispatch(detailsProduct(productId));
+                }
+
+        } else {
+            dispatch(detailsProduct(productId));
+        }
+
+    }, [dispatch, product, productId]);
+
+    const submitHandler = (e) => {
+        e.preventDefault();
+        dispatch(updateProduct(productId, {brand, name, category, price, countInStock, description}));
+    }
 
     return (
         <div>
@@ -37,8 +55,11 @@ export default function EditProductScreen(props) {
             :
             error ? <MessageBox>{error}</MessageBox>
             :
+            errorUpdated ? <MessageBox>{errorUpdated}</MessageBox>
+            :
             (
-            <form className="form">
+            <form className="form" onSubmit={submitHandler}>
+                {success && (<MessageBox>Product updated succesfully</MessageBox>)}
                 <div>
                     <h1>Edit Product</h1>
                 </div>
@@ -48,6 +69,7 @@ export default function EditProductScreen(props) {
                         type="text"
                         id="brand"
                         placeholder="Enter brand"
+                        value={brand}
                         required
                         onChange={e => setBrand(e.target.value)}
                     ></input>
@@ -58,6 +80,7 @@ export default function EditProductScreen(props) {
                         type="text"
                         id="name"
                         placeholder="Enter name"
+                        value={name}
                         required
                         onChange={e => setName(e.target.value)}
                     ></input>
@@ -68,6 +91,7 @@ export default function EditProductScreen(props) {
                         type="text"
                         id="category"
                         placeholder="Enter category"
+                        value={category}
                         required
                         onChange={e => setCategory(e.target.value)}
                     ></input>
@@ -78,6 +102,7 @@ export default function EditProductScreen(props) {
                         type="number"
                         id="price"
                         placeholder="Enter price"
+                        value={price}
                         required
                         onChange={e => setPrice(e.target.value)}
                     ></input>
@@ -88,6 +113,7 @@ export default function EditProductScreen(props) {
                         type="number"
                         id="stock"
                         placeholder="Enter stock"
+                        value={countInStock}
                         required
                         onChange={e => setStock(e.target.value)}
                     ></input>
@@ -98,6 +124,7 @@ export default function EditProductScreen(props) {
                         type="text"
                         id="description"
                         placeholder="Enter description"
+                        value={description}
                         required
                         onChange={e => setDescription(e.target.value)}
                     ></input>

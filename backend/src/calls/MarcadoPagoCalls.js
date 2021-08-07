@@ -2,7 +2,7 @@
 const mercadopago = require ('mercadopago');
 
 // Agrega credenciales
-const token = process.env.ACCESS_TOKEN || 'APP_USR-6869261542559696-072723-55d8e74f67b87a7095d9dbcfc995aad8-798014454';
+const token = process.env.ACCESS_TOKEN || 'TEST-6869261542559696-072723-f51ff3d85be24511737466bdf252bfe2-798014454';
 mercadopago.configure({
   access_token: token
 });

@@ -14,10 +14,10 @@ import ProfileScreen from './screens/ProfileScreen';
 import PrivateRoute from './components/PrivateRoute';
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
-import AdminOrderScreen from './screens/AdminOrderScreen';
+import AdminOrderScreen from './screens/Admin/AdminOrderScreen';
 import PrivateRouteAdmin from './components/PrivateRouteAdmin';
 import Checkout from './components/checkout/CheckoutSteps';
-import AdminProductScreen from './screens/AdminProductScreen';
+import AdminProductScreen from './screens/Admin/AdminProductScreen';
 import EditProductScreen from './screens/EditProductScreen';
 
 function App() {
