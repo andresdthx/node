@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { ORDER_PAY_RESET } from '../constants/orderConstants';
 import FormPayment from '../components/FormPayment';
+import { updateProduct } from '../actions/productActions';
 
 export default function OrderScreen(props) {
 
@@ -105,7 +106,13 @@ export default function OrderScreen(props) {
     },[dispatch, orderId, successPay]);
 
     const successPaymentHandler = (paymentResult) => {
-        dispatch(payOrder(order, paymentResult));
+        updateProductCount();
+        // dispatch(payOrder(order, paymentResult));
+    }
+
+    const updateProductCount = () =>{
+        // order.orderItems.map( item => console.log(item));
+        order.orderItems.map( item => dispatch(updateProduct(item._id, {...item, countInStock: item.qty})));
     }
 
     const errorPaymentHandler = (paymentResult) => {

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
-import FormUser from '../components/FormUser';
+import FormUser from '../../components/FormUser';
 
 export default function ProfileScreen(props) {
 

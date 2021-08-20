@@ -3,14 +3,14 @@ import ProductScreen from './screens/ProductScreen';
 import HomeScreen from './screens/HomeScreen';
 import CartScreen from './screens/CartScreen';
 import { Link } from 'react-router-dom';
-import SigninScreen from './screens/SigninScreen';
-import RegisterScreen from './screens/RegisterScreen';
+import SigninScreen from './screens/User/SigninScreen';
+import RegisterScreen from './screens/User/RegisterScreen';
 import ShippingAddressScreen from './screens/ShippingAddressScreen';
 import PaymentMethodScreen from './screens/PaymentMethodScreen';
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import OrderScreen from './screens/OrderScreen';
 import OrderHistoryScreen from './screens/OrderHistoryScreen';
-import ProfileScreen from './screens/ProfileScreen';
+import ProfileScreen from './screens/User/ProfileScreen';
 import PrivateRoute from './components/PrivateRoute';
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
@@ -19,6 +19,8 @@ import PrivateRouteAdmin from './components/PrivateRouteAdmin';
 import Checkout from './components/checkout/CheckoutSteps';
 import AdminProductScreen from './screens/Admin/AdminProductScreen';
 import EditProductScreen from './screens/EditProductScreen';
+import AdminUserScreen from './screens/Admin/AdminUserScreen';
+import EditUserScreen from './screens/User/EditUserScreen';
 
 function App() {
 
@@ -57,6 +59,8 @@ function App() {
 
                 <PrivateRouteAdmin path="/admin/orders" component={AdminOrderScreen}></PrivateRouteAdmin>
                 <PrivateRouteAdmin path="/admin/products" component={AdminProductScreen}></PrivateRouteAdmin>
+                <PrivateRouteAdmin path="/admin/users" component={AdminUserScreen}></PrivateRouteAdmin>
+                <PrivateRouteAdmin path="/edit/users/:id" component={EditUserScreen}></PrivateRouteAdmin>
             </HashRouter>
         {/* </main> */}
 
